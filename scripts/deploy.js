@@ -1,25 +1,23 @@
-const { ethers } = require("hardhat");
+import { ethers, run } from 'hardhat';
+
+import deployer from '../.secret';
+
+// WFTM address 
+const taxRate = '0';
+const taxCollectorAddress = '0x3764eeBcFbEE9dA588213B48bff90D6da852C79E';
+
 
 async function main() {
-  const [deployer] = await ethers.getSigners();
-  console.log('Deploying contracts with the account: ' + deployer.address);
+  await run('compile');
+  const Tomb = await ethers.getContractFactory('Tomb');
+  const Tomb = await Tomb.deploy(taxRate,taxCollectorAddress);
 
-  // Deploy First
-    const First = await ethers.getContractFactory('FirstContract');
-    const first = await First.deploy();
-
-  // Deploy Second
-    const Second = await ethers.getContractFactory('SecondContract');
-    const second = await Second.deploy(first.address);
-
-   console.log( "First: " + first.address );
-   console.log( "Second: " + second.address ); 
-
+  console.log(`Tomb deployed to ${Tomb.address}`);
 }
 
 main()
-    .then(() => process.exit())
-    .catch(error => {
-        console.error(error);
-        process.exit(1);
-})
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
