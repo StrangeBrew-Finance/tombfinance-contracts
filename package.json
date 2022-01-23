@@ -1,7 +1,7 @@
-
+{
   "name": "tombfork",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "deploy.js",
   "license": "MIT",
   "scripts": {
     "prettier": "prettier --write 'contracts/**/*.sol'",
